@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
 	if (res != CURLE_OK) {
 		fprintf(stderr, "curl_easy_perform() failed: %s\n",
 			curl_easy_strerror(res));
+		return 1;
 	}
 
 	long response_code;
