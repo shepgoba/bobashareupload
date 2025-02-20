@@ -38,12 +38,15 @@ int main(int argc, char *argv[])
 	CURL *curl = curl_easy_init();
 	if (!curl) {
 		std::cout << "Failed to initialize libCURL\n";
+		curl_global_cleanup();
 		return 1;
 	}
 	std::string file_path = argv[1];
 	std::vector<char> file_data;
 	if (!get_file_data(file_path, file_data)) {
 		std::cout << std::format("Failed to get file data for '{}'\n", file_path);
+		curl_easy_cleanup(curl);
+		curl_global_cleanup();
 		return 1;
 	}
 
