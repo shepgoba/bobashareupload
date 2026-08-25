@@ -54,7 +54,8 @@ int main(int argc, char *argv[])
 	std::string post_url = SERVER_URL + std::string("/api/v1/upload/") + path_object.filename().string();
 	
 	// set headers
-	std::string mime_type = MimeTypes::getType(file_path.c_str());
+	const char *predicted_mime_type = MimeTypes::getType(file_path.c_str());
+	std::string mime_type = predicted_mime_type ? predicted_mime_type : "text/plain";
 	struct curl_slist *headers = nullptr;
 	headers = curl_slist_append(headers, ("Content-Type: " + mime_type).c_str());
 
